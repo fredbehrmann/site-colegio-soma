@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# [VALIDAR COM O SOMA] Inserir URL absoluta do sitemap após confirmação do domínio oficial.
