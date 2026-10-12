@@ -1,6 +1,6 @@
-# Protótipo de homepage — Colégio SOMA
+# Protótipo de homepage — Escola SOMA
 
-Este pacote implementa uma homepage institucional responsiva com base no briefing fornecido e nos documentos de branding/persona do Colégio SOMA.
+Este pacote implementa uma homepage institucional responsiva com base no briefing fornecido e nos documentos de branding/persona da Escola SOMA.
 
 ## Arquivos
 
@@ -29,6 +29,21 @@ O protótipo mantém marcadores `[VALIDAR COM O SOMA]` para dados que precisam s
 ## Tipografia
 
 O briefing pede Hanson Bold nos títulos apenas se arquivo/licença web forem fornecidos, e Poppins nos demais textos. Como os arquivos de fonte não foram fornecidos, este protótipo usa fallbacks de sistema e deixa a substituição pronta no topo de `styles.css`.
+
+## Imagens a fornecer
+
+O layout possui oito espaços fotográficos numerados. Todas as imagens devem ser reais, luminosas, espontâneas, em alta resolução e ter autorização adequada de uso de imagem. Evitar poses excessivamente publicitárias, marcas de terceiros e dados pessoais visíveis.
+
+1. **Imagem 01 — foto principal:** aluno e educador interagindo em uma situação real de aprendizagem. Preferir enquadramento horizontal, com respiro ao redor das pessoas para os recortes responsivos.
+2. **Imagem 02 — unidade SOMA Vila:** fachada, entrada ou ambiente marcante que identifique claramente a unidade. Preferir enquadramento horizontal, boa luz e espaço organizado.
+3. **Imagem 03 — unidade SOMA Garden:** ambiente externo com área verde e crianças utilizando o espaço. Preferir enquadramento horizontal que mostre a integração com a natureza.
+4. **Imagem 04 — atividades em sala:** alunos e professor em uma aula participativa, mostrando troca, curiosidade e proximidade. Esta imagem ocupa o maior quadro do mosaico e deve funcionar também em recorte vertical.
+5. **Imagem 05 — arte e expressão:** atividade de artes visuais, música, teatro, dança ou outra produção criativa dos estudantes.
+6. **Imagem 06 — esporte e convivência:** prática esportiva, brincadeira coletiva ou momento de integração entre estudantes.
+7. **Imagem 07 — projetos pedagógicos:** experimento, feira, apresentação ou trabalho prático que mostre os alunos como protagonistas.
+8. **Imagem 08 — eventos com as famílias:** familiares e estudantes participando de uma celebração, encontro ou atividade promovida pela escola. Preferir enquadramento horizontal mais aberto.
+
+Para preservar a qualidade em telas grandes, recomenda-se enviar os arquivos originais em JPEG ou HEIC com pelo menos 2400 px no lado maior. A versão publicada deve ser exportada em AVIF/WebP e receber recortes responsivos quando necessário.
 
 ## Publicação
 
