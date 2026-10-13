@@ -6,25 +6,20 @@ Este pacote implementa uma homepage institucional responsiva com base no briefin
 
 - `index.html` — estrutura semântica, copy em PT-BR, JSON-LD básico e todas as seções da homepage.
 - `styles.css` — sistema visual responsivo, usando a paleta do SOMA.
-- `script.js` — menu móvel, tabs acessíveis, protótipo de formulário, captura de UTMs e eventos preparados para `dataLayer`.
+- `script.js` — menu móvel, tabs acessíveis, validação e envio do formulário para Planilhas Google.
+- `google-apps-script.gs` — código do aplicativo web que valida e registra os agendamentos na planilha da secretaria.
 - `assets/` — logotipo e grafismos extraídos do manual fornecido pelo usuário, além de versões WebP.
-- `robots.txt` e `sitemap.xml` — preparados para receber o domínio oficial.
+- `politica-de-privacidade.html` e `termos-de-uso.html` — minutas jurídicas para revisão antes da publicação.
+- `robots.txt` e `sitemap.xml` — configurados para `https://www.escolasoma.com.br`.
 
 ## Pontos que NÃO foram inventados
 
-O protótipo mantém marcadores `[VALIDAR COM O SOMA]` para dados que precisam ser confirmados antes da publicação, incluindo:
+Os dados institucionais, unidades, etapas, horários, endereços, documentos de matrícula, domínio e canais de atendimento foram preenchidos a partir da validação da Escola SOMA. Permanecem pendentes:
 
-1. grafia oficial de “Vila” ou “Villa”;
-2. endereço, telefone/WhatsApp e horários de cada unidade;
-3. oferta atual de etapas e séries por unidade;
-4. disponibilidade atual de período integral;
-5. infraestrutura e parceria bilíngue da Garden;
-6. fotos reais autorizadas;
-7. depoimentos, avaliações e resultados reais;
-8. documentos de matrícula;
-9. Política de Privacidade e Termos de Uso;
-10. domínio oficial e URLs canônicas;
-11. prazo real de retorno após envio do formulário.
+1. fotos reais autorizadas para os oito espaços numerados;
+2. depoimentos reais autorizados — a seção está preservada no código e oculta;
+3. revisão jurídica da Política de Privacidade e dos Termos de Uso;
+4. configuração definitiva da hospedagem e do DNS do domínio oficial.
 
 ## Tipografia
 
@@ -47,7 +42,7 @@ Para preservar a qualidade em telas grandes, recomenda-se enviar os arquivos ori
 
 ## Publicação
 
-Antes de publicar, é necessário conectar o formulário a um backend/CRM seguro, configurar WhatsApp/rotas, inserir os dados oficiais de cada unidade, configurar GTM/GA4, preencher canonical/OG URLs, completar o JSON-LD de cada unidade com endereço/telefone/horários validados e revisar a Política de Privacidade.
+O formulário está conectado à planilha `Agendamentos do site - Escola SOMA` por um aplicativo web do Google Apps Script executado pela conta operacional `leadssoma@gmail.com`. Antes da publicação definitiva, ainda é necessário revisar as páginas jurídicas, inserir as fotos autorizadas e concluir a configuração da hospedagem e do DNS. O site não utiliza Google Analytics, Meta Pixel, cookies de rastreamento nem captura de UTMs.
 
 ## Checklist final
 
@@ -56,9 +51,9 @@ Antes de publicar, é necessário conectar o formulário a um backend/CRM seguro
 - [x] title e meta description
 - [x] Open Graph/Twitter básico
 - [x] conteúdo local natural (Abrantes/Estrada do Coco/Camaçari)
-- [x] JSON-LD válido sem inventar endereço/telefone
-- [ ] canonical após domínio oficial
-- [ ] sitemap com URLs reais
+- [x] JSON-LD com dados institucionais validados
+- [x] canonical no domínio oficial
+- [x] sitemap com URLs absolutas
 - [ ] páginas próprias para cada unidade, se entrarem no escopo
 
 ### Acessibilidade
@@ -81,13 +76,6 @@ Antes de publicar, é necessário conectar o formulário a um backend/CRM seguro
 - [ ] converter fotos finais para AVIF/WebP, definir dimensões e lazy loading abaixo da dobra
 - [ ] medir LCP, INP e CLS na hospedagem real
 
-### Mensuração preparada
-Eventos emitidos para `window.dataLayer`, se ele existir:
-- `clique_agendar_visita`
-- `clique_whatsapp`
-- `selecao_unidade`
-- `selecao_segmento`
-- `envio_formulario`
-- `formulario_sucesso`
+### Mensuração
 
-Também há armazenamento temporário das UTMs em `sessionStorage`, sem armazenar dados pessoais.
+Nenhuma ferramenta de analytics ou publicidade está configurada. A decisão deve ser revista junto com a Política de Privacidade caso uma ferramenta de medição seja adicionada no futuro.

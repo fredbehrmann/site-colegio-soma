@@ -1,10 +1,4 @@
 (() => {
-  const pushEvent = (event, extra = {}) => {
-    const payload = { event, ...extra };
-    if (Array.isArray(window.dataLayer)) window.dataLayer.push(payload);
-    console.info('[SOMA analytics]', payload);
-  };
-
   // Menu móvel
   const menuButton = document.querySelector('.menu-toggle');
   const mainNav = document.querySelector('.main-nav');
@@ -54,45 +48,60 @@
   initTabs('[data-tabs]');
   initTabs('[data-segment-tabs]');
 
-  // Eventos preparados para GA4/GTM
-  document.querySelectorAll('[data-event]').forEach((el) => {
-    el.addEventListener('click', () => pushEvent(el.dataset.event, { label: el.textContent.trim().slice(0, 80) }));
-  });
-
-  document.querySelectorAll('[data-segment-tabs] [role="tab"]').forEach((tab) => {
-    tab.addEventListener('click', () => pushEvent('selecao_segmento', { segmento: tab.textContent.trim() }));
-  });
-
-  // Captura UTMs somente em memória/sessionStorage, sem dados pessoais.
-  const params = new URLSearchParams(location.search);
-  const utms = {};
-  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach((key) => {
-    if (params.get(key)) utms[key] = params.get(key);
-  });
-  if (Object.keys(utms).length) sessionStorage.setItem('soma_utms', JSON.stringify(utms));
-
-  // Protótipo de validação de formulário. Não envia dados a nenhum servidor.
+  // Envio do pedido de visita para a planilha da secretaria.
   const form = document.getElementById('visit-form');
   const error = document.getElementById('form-error');
   const success = document.getElementById('form-success');
-  if (form && error && success) {
-    form.addEventListener('submit', (e) => {
+  const submitButton = document.getElementById('visit-submit');
+  const endpoint = document.querySelector('meta[name="soma-form-endpoint"]')?.content?.trim();
+  if (form && error && success && submitButton) {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      pushEvent('envio_formulario');
       if (!form.checkValidity()) {
+        error.textContent = 'Revise os campos obrigatórios antes de continuar.';
         error.hidden = false;
         form.reportValidity();
         return;
       }
+
+      if (!endpoint) {
+        error.textContent = 'O envio online está temporariamente indisponível. Fale com a secretaria pelo WhatsApp.';
+        error.hidden = false;
+        return;
+      }
+
       error.hidden = true;
-      form.hidden = true;
-      success.hidden = false;
-      success.focus();
-      pushEvent('formulario_sucesso', {
-        segmento: form.elements.segmento.value,
-        unidade: form.elements.unidade.value,
-        ...JSON.parse(sessionStorage.getItem('soma_utms') || '{}')
-      });
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando…';
+
+      const data = new FormData(form);
+      const payload = {
+        responsavel: data.get('responsavel'),
+        whatsapp: data.get('whatsapp'),
+        email: data.get('email'),
+        segmento: data.get('segmento'),
+        unidade: data.get('unidade'),
+        periodo: data.get('periodo'),
+        consentimento: data.get('consentimento') === 'on',
+        website: data.get('website'),
+      };
+
+      try {
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload),
+        });
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+      } catch (requestError) {
+        error.textContent = 'Não foi possível enviar agora. Tente novamente ou fale com a secretaria pelo WhatsApp.';
+        error.hidden = false;
+        submitButton.disabled = false;
+        submitButton.textContent = 'Quero agendar uma visita';
+      }
     });
   }
 
